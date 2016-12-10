@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><?php print $this->lang['auth_form_page_title'] ?></title>
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/ThirdParty/prototype.js', 'site' ) ?>"></script>
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/ThirdParty/scriptaculous/scriptaculous-cache.js', 'site' ) ?>"></script>
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/PearRegistry.js', 'site') ?>"></script>
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/CP/PearCPRegistry.js', 'site' ) ?>"></script>
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/PearMenu.js', 'site' ) ?>"></script>
+	<?php $this->addCSSFile('/PearCPAuth.css', 'cp_stylesheets') ?>
+	<?php print $this->pearRegistry->response->getPageHeaders() ?>
+	
+	<script type="text/javascript">
+	//<![CDATA[
+		
+		//=============================================================
+		//	Define vars
+		//=============================================================
+		
+		/** ##############  	Globals   ############## **/
+		var PEAR_IN_DEBUG_MODE						= true;
+		var PEAR_IS_ADMIN_CP							= true;
+		
+		/** ##############  	Member information   ############## **/
+		PearRegistry.Member.memberID					= parseInt( "<?php print $this->member['member_id'] ?>" );
+		PearRegistry.Member.memberName 			    = "<?php print $this->member['member_name'] ?>";
+		PearRegistry.Member.memberGroup			    = parseInt( "<?php print $this->member['member_group_ids'] ?>" );
+		PearRegistry.Member.isAdion			        = ( parseInt( "<?php print $this->member['group_access_cp'] ?>" ) === 1 );
+		PearRegistry.Member.sessionID				= "<?php print $this->session->sessionID ?>";
+		PearRegistry.Member.secureToken				= "<?php print $this->secureToken ?>";
+		
+		/** ##############   Urls   ############## **/
+		PearRegistry.Settings.baseUrl        		= "<?php print $this->baseUrl ?>";
+		PearRegistry.Settings.websiteUrl				= "<?php print $this->absoluteUrl( 'index.php' ) ?>";
+		PearRegistry.Settings.uploadUrl       		= "<?php print $this->settings['upload_url'] ?>/";
+		PearRegistry.Settings.imagesUrl		        = "<?php print $this->imagesUrl ?>/";
+	
+		/** ##############   Language pack  ############## **/
+		PearRegistry.Settings.selectedLanguageKey	= "<?php print $this->pearRegistry->localization->selectedLanguage['language_key'] ?>";
+		PearRegistry.Settings.languageIsRtl			= parseInt( "<?php print $this->pearRegistry->localization->selectedLanguage['language_is_rtl'] ?>" );
+		
+		/** ##############   Templates  ############## **/
+		PearRegistry.Templates['loading_message']	= new Template('<div id="loading-message-layer"><img src="<?php print $this->imagesUrl ?>/loading-animation.gif" alt="" /> #{loadingText}</div>');
+		
+		//=============================================================
+		//	Initialize
+		//=============================================================
+		
+		PearRegistry.initialize();
+		
+	//]]>
+	</script>
+	
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( PEAR_LANGUAGES_DIRECTORY . $this->pearRegistry->localization->selectedLanguage['language_key'] . '/lang_jscripts.js', 'site' )?>"></script>
+</head>
+<body>
+<div id="pearcp-auth-content-rect">
+	<div id="pearcp-auth-header">
+		<h1></h1>
+	</div>
+	<div class="data-block drop-shadow">
+		<div class="title"><?php print $this->lang['auth_center_form_title'] ?></div>
+		<div class="content">
+			<div class="warning-message"><?php print $this->lang['no_permissions'] ?></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+	$( "<?php print $focusAtTextbox ?>" ).focus();
+//]]>
+</script>
+</body>
+</html>
